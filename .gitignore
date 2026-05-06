@@ -1,4 +1,6 @@
-res/
+res/experimental/zebrafish/*
+res/experimental/drosophila/*
+res/experimental/wot/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,6 +1,6 @@
 # Latent Gaussian Process with Optimal Transport (LGP-OT)
 
-The official implementation of ICML 2026 paper (poster) [Modeling Temporal scRNA-seq Data with Latent Gaussian Process and Optimal Transport](https://openreview.net/forum?id=8RE5i7g4uB). 
+The official implementation of the ICML 2026 paper (poster) [Modeling Temporal scRNA-seq Data with Latent Gaussian Process and Optimal Transport](https://openreview.net/forum?id=8RE5i7g4uB). 
 
 ![LGP-OT overview.](./images/main_fig.png)
 
@@ -14,25 +14,20 @@ To install requirements:
 - [PyTorch](https://pytorch.org) (>= 2.3) and associated dependencies.
 - [Anaconda](https://docs.conda.io/projects/conda/en/latest/user-guide/getting-started.html)
 
-basic setup for non-GPU usage:
+Basic setup for non-GPU usage:
 ```setup
-conda env create -f environment_basic.yml
+bash setup.sh
 ```
-setup for GPU usage:
-```setup
-conda env create -f environment_gpu.yml
-```
+Change `environment_basic.yaml` to `environment_gpu.yaml` in `setup.sh` and run the command above for the GPU setup.
 
 ## Datasets Pre-Requirements
 
-First, create a directory to store all datasets
+First, create a directory to store all datasets.
 
 ```datadir
 mkdir ../data
 ```
-Then, download the datasets from [here](https://doi.org/10.6084/m9.figshare.25601610.v1) and place them in the `../data` directory. The datasets include pre-processed versions of three scRNA-seq datasets: zebrafish embryo, drosophila, and Schiebinger2019. Each dataset contains the raw and pre-processed data, which can be used for training and evaluating the LGP-OT model. 
-
-Run `./data/DrosophilaData_add_CellType.py` to add cell type information to the Drosophila dataset.
+Then, download the datasets from [here](https://www.dropbox.com/scl/fi/rc8o0ize5btfwnxp4t82p/single-cell.zip?rlkey=7xoeb29d7jomc6oxdgc7jpaph&st=y3vs4j7y&dl=0) and place them in the `../data` directory. The datasets include pre-processed versions of three scRNA-seq datasets: zebrafish embryo, drosophila, and Schiebinger2019. Each dataset contains the raw and pre-processed data, which can be used for training and evaluating the LGP-OT model. 
 
 Train the model using the following command, where you can specify the dataset and split type:
 
@@ -40,10 +35,15 @@ Train the model using the following command, where you can specify the dataset a
 python scripts/LGPOT.py --data_name <dataset_name> --split_type <split_type> --seed <random_seed>
 ```
 
+|Argument|Options|Mapping|
+|-|-|-|
+|data_name|`zebrafish`<br>`drosophila`<br>`wot`|`zebrafish` = ZB<br>`drosophila` = DR <br>`wot` = SC (Schiebinger2019)|
+|split_type|`three_interpolation`<br>`three_forecasting`<br>`two_forecasting`<br>`rremove_recovery`|Easy: `three_interpolation`<br>Medium: `three_forecasting` (`two_forecasting` for ZB)<br>Hard: `remove_recovery`|
+
 Used code bases:
 - DGBFGP (Balik et al., 2025): https://github.com/YigitBalik/DGBFGP
 - scNODE (Zhang et al., 2024): https://github.com/rsinghlab/scNODE 
 
 References:
-1. Balık, M. Y., Sinelnikov, M., Ong, P., & Lähdesmäki, H. (2025, April). Bayesian Basis Function Approximation for Scalable Gaussian Process Priors in Deep Generative Models. In *Forty-second International Conference on Machine Learning*.
+1. Balık, M. Y., Sinelnikov, M., Ong, P., & Lähdesmäki, H. (2025). Bayesian Basis Function Approximation for Scalable Gaussian Process Priors in Deep Generative Models. In *Forty-second International Conference on Machine Learning*.
 2. Zhang, J., Larschan, E., Bigness, J., & Singh, R. (2024). scNODE: generative model for temporal single cell transcriptomic data prediction. *Bioinformatics*, 40, ii146-ii154.

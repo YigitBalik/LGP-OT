@@ -103,7 +103,6 @@ dependencies:
       - nvidia-nvtx-cu12==12.1.105
       - packaging==24.2
       - palettable==3.3.3
-      - pandas==2.2.2
       - patsy==1.0.1
       - phate==1.0.11
       - pillow==10.4.0

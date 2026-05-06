@@ -79,7 +79,7 @@ print("Test tps={}".format(test_tps))
 # ======================================================
 # Model training
 latent_coeff = 1.0 # regularization coefficient: beta
-epochs = 500 if split_type == "all" else 0
+epochs = 500 if split_type == "all" else 1250
 batch_size = 256
 lr = 1e-3
 n_sim_cells = 2000
